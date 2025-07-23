@@ -17,12 +17,12 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-       <Route path="/" element={<VehicleList token={token} />} />
-      {/* <Route path='/' element={<Home/>}/> */}
+  
+      <Route path='/' element={<Home/>}/>
       <Route path='/Login' element={<Login/>}/>
       <Route path="/contact" element={<Contact />} />
       <Route path='/about' element={<About/>}/>
-      {/* <Route path="vehicles" element={<VehicleList/>} /> */}
+      <Route path="/vehicles" element={<VehicleList/>} />
          <Route path="/vehicle/create" element={<VehicleForm token={token} />} />
         <Route path="/vehicle/:id/view" element={<VehicleForm token={token} />} />
         <Route path="/vehicle/:id/edit" element={<VehicleForm token={token} />} />

@@ -12,132 +12,193 @@
 //   }, [token]);
 
 //   const handleDelete = async (id) => {
-//     await axios.delete(`/api/vehicles/${id}`, {
-//       headers: { Authorization: `Bearer ${token}` }
-//     });
-//     setVehicles(vehicles.filter(v => v._id !== id));
+//     if (window.confirm('Are you sure you want to delete this vehicle?')) {
+//       await axios.delete(`/api/vehicles/${id}`, {
+//         headers: { Authorization: `Bearer ${token}` }
+//       });
+//       setVehicles(vehicles.filter(v => v._id !== id));
+//     }
 //   };
 
 //   return (
-//     <div className="p-4">
-//       <div className="flex justify-between mb-4">
-//         <Link to="/vehicle/create" className="bg-green-500 px-4 py-2 text-white rounded">Create New</Link>
-//         <Link to="/emails" className="bg-blue-500 px-4 py-2 text-white rounded">Add Emails</Link>
-//       </div>
+//     <div className="min-h-screen bg-gray-50 p-6">
+//       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+//         {vehicles.map((v) => (
+//           <div key={v._id} className="bg-white border border-gray-200 rounded-lg shadow-sm p-5">
+//             <div className="flex justify-between items-start">
+//               <div>
+//                 <h3 className="text-lg font-bold text-gray-800">{v.vehicleNumber}</h3>
+//                 <p className="text-sm text-gray-600 mb-1">Owner: {v.ownerName}</p>
+//                 <p className="text-sm text-gray-600">Type: {v.vehicleType}</p>
+//               </div>
+//               <div className="text-sm">
+//                 <span className={`px-2 py-1 rounded-full text-white text-xs font-semibold ${
+//                   v.documentStatus === 'Active'
+//                     ? 'bg-green-500'
+//                     : v.documentStatus === 'Warning'
+//                     ? 'bg-yellow-500'
+//                     : 'bg-red-500'
+//                 }`}>
+//                   {v.documentStatus}
+//                 </span>
+//               </div>
+//             </div>
 
-//       <table className="w-full border text-left">
-//         <thead>
-//           <tr className="bg-gray-200">
-//             <th className="p-2">Vehicle Number</th>
-//             <th className="p-2">Vehicle Owner</th>
-//             <th className="p-2">Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {vehicles.map(v => (
-//             <tr key={v._id} className="border-t">
-//               <td className="p-2">{v.vehicleNumber}</td>
-//               <td className="p-2">{v.ownerName}</td>
-//               <td className="p-2 space-x-2">
-//                 <Link to={`/vehicle/${v._id}/view`} className="text-blue-600">View</Link>
-//                 <Link to={`/vehicle/${v._id}/edit`} className="text-yellow-600">Edit</Link>
-//                 <button onClick={() => handleDelete(v._id)} className="text-red-600">Delete</button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
+//             <div className="mt-4 text-sm text-gray-700 space-y-1">
+//               <p><strong>Insurance Expiry:</strong> {new Date(v.insuranceExpiry).toLocaleDateString()}</p>
+//               <p><strong>Fitness Expiry:</strong> {new Date(v.fitnessExpiry).toLocaleDateString()}</p>
+//               <p><strong>Permit Expiry:</strong> {new Date(v.permitExpiry).toLocaleDateString()}</p>
+//               <p><strong>Pollution Expiry:</strong> {new Date(v.pollutionExpiry).toLocaleDateString()}</p>
+//               <p><strong>Tax Expiry:</strong> {new Date(v.taxExpiry).toLocaleDateString()}</p>
+//             </div>
+
+//             <div className="mt-4 flex space-x-4 text-sm">
+//               <Link to={`/vehicle/${v._id}/view`} className="text-blue-600 hover:underline font-medium">View</Link>
+//               <Link to={`/vehicle/${v._id}/edit`} className="text-yellow-600 hover:underline font-medium">Edit</Link>
+//               <button onClick={() => handleDelete(v._id)} className="text-red-600 hover:underline font-medium">Delete</button>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
 //     </div>
 //   );
 // };
 
 // export default VehicleList;
+
+
+
 import { Link } from 'react-router-dom';
+import { FaCar, FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 
 const VehicleList = () => {
   const vehicles = [
-    { _id: '1', vehicleNumber: 'ABC123', ownerName: 'Abhinav' },
-    { _id: '2', vehicleNumber: 'XYZ789', ownerName: 'Manav Raj' },
-    { _id: '3', vehicleNumber: 'DEF456', ownerName: 'Rohan roy' },
+    {
+      _id: '1',
+      vehicleNumber: 'MH12AB1234',
+      ownerName: 'Ramesh Singh',
+      vehicleType: 'Truck',
+      insuranceExpiry: '2025-11-15',
+      fitnessExpiry: '2025-12-10',
+      permitExpiry: '2025-12-30',
+      pollutionExpiry: '2025-11-01',
+      taxExpiry: '2026-01-15',
+      documentStatus: 'Active',
+    },
+    {
+      _id: '2',
+      vehicleNumber: 'DL01XY5678',
+      ownerName: 'Suresh Kumar',
+      vehicleType: 'Car',
+      insuranceExpiry: '2024-09-10',
+      fitnessExpiry: '2024-08-01',
+      permitExpiry: '2024-10-05',
+      pollutionExpiry: '2024-07-20',
+      taxExpiry: '2024-12-01',
+      documentStatus: 'Warning',
+    },
+    {
+      _id: '3',
+      vehicleNumber: 'RJ14PQ1111',
+      ownerName: 'Anil Mehta',
+      vehicleType: 'Bike',
+      insuranceExpiry: '2023-12-20',
+      fitnessExpiry: '2023-10-15',
+      permitExpiry: '2023-11-05',
+      pollutionExpiry: '2023-09-10',
+      taxExpiry: '2023-12-31',
+      documentStatus: 'Expired',
+    },
   ];
 
   const handleDelete = (id) => {
     if (window.confirm('Are you sure you want to delete this vehicle?')) {
-      alert(`Vehicle with ID ${id} deleted.`);
+      alert(`Vehicle with ID ${id} deleted (mocked).`);
+    }
+  };
+
+  const statusClasses = (status) => {
+    switch (status) {
+      case 'Active':
+        return 'bg-green-100 text-green-700 border-green-300';
+      case 'Warning':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-300 animate-pulse';
+      case 'Expired':
+        return 'bg-red-100 text-red-700 border-red-300 animate-pulse';
+      default:
+        return 'bg-gray-100 text-gray-600 border-gray-300';
     }
   };
 
   return (
-    <div className="p-8 min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <div className="max-w-6xl mx-auto bg-white/60 backdrop-blur-lg rounded-3xl shadow-[12px_12px_20px_#cbd5e1,-8px_-8px_20px_#ffffff] p-8 border border-white">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-extrabold text-gray-800 drop-shadow-lg">🚘 Vehicle Dashboard</h2>
-          <div className="space-x-4">
-            <Link
-              to="/vehicle/create"
-              className="bg-green-400 hover:bg-green-500 text-white px-5 py-2 rounded-xl shadow-[inset_2px_2px_6px_rgba(0,0,0,0.1),inset_-2px_-2px_6px_rgba(255,255,255,0.7)] transition-all duration-200"
-            >
-              + Create New
-            </Link>
-            <Link
-              to="/emails"
-              className="bg-blue-400 hover:bg-blue-500 text-white px-5 py-2 rounded-xl shadow-[inset_2px_2px_6px_rgba(0,0,0,0.1),inset_-2px_-2px_6px_rgba(255,255,255,0.7)] transition-all duration-200"
-            >
-              📧 Add Emails
-            </Link>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 py-10 px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-10">
+          <h1 className="text-3xl font-extrabold text-indigo-800">Vehicle Dashboard</h1>
+          <Link
+            to="/vehicle/create"
+            className="bg-indigo-600 text-white px-5 py-2 rounded-md hover:bg-indigo-700 transition duration-200 shadow-sm"
+          >
+            + Add New Vehicle
+          </Link>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-white shadow-[6px_6px_12px_rgba(0,0,0,0.1),-4px_-4px_12px_rgba(255,255,255,0.6)]">
-          <table className="w-full text-sm text-gray-700 rounded-xl overflow-hidden">
-            <thead className="bg-gradient-to-r from-purple-200 via-white to-purple-100 text-gray-700">
-              <tr>
-                <th className="p-4 text-left font-semibold">🚗 Vehicle Number</th>
-                <th className="p-4 text-left font-semibold">👤 Vehicle Owner</th>
-                <th className="p-4 text-left font-semibold">⚙️ Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {vehicles.map((v, i) => (
-                <tr
-                  key={v._id}
-                  className={`hover:bg-white/80 transition-all duration-300 ${
-                    i % 2 === 0 ? 'bg-white/50' : 'bg-white/30'
-                  }`}
-                >
-                  <td className="p-4 font-semibold">{v.vehicleNumber}</td>
-                  <td className="p-4">{v.ownerName}</td>
-                  <td className="p-4 space-x-3">
-                    <Link
-                      to={`/vehicle/${v._id}/view`}
-                      className="text-blue-600 hover:underline hover:font-bold transition"
-                    >
-                      View
-                    </Link>
-                    <Link
-                      to={`/vehicle/${v._id}/edit`}
-                      className="text-yellow-600 hover:underline hover:font-bold transition"
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      onClick={() => handleDelete(v._id)}
-                      className="text-red-600 hover:underline hover:font-bold transition"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {vehicles.length === 0 && (
-                <tr>
-                  <td colSpan="3" className="text-center py-6 text-gray-500 text-lg">
-                    🚫 No vehicles found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {vehicles.map((v) => (
+            <div
+              key={v._id}
+              className="bg-white rounded-2xl border shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1 group"
+            >
+              <div className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h2 className="text-lg font-semibold text-gray-800 flex items-center gap-2 group-hover:text-indigo-600">
+                      <FaCar className="text-blue-500 transition-transform group-hover:scale-110" />
+                      {v.vehicleNumber}
+                    </h2>
+                    <p className="text-sm text-gray-600 mt-1">Owner: {v.ownerName}</p>
+                    <p className="text-sm text-gray-600">Type: {v.vehicleType}</p>
+                  </div>
+                  <span
+                    className={`text-xs font-semibold px-3 py-1 rounded-full border shadow-sm ${statusClasses(
+                      v.documentStatus
+                    )}`}
+                  >
+                    {v.documentStatus}
+                  </span>
+                </div>
+
+                <div className="border-t pt-3 text-sm text-gray-700 space-y-1 leading-6">
+                  <p><strong>Insurance:</strong> {new Date(v.insuranceExpiry).toLocaleDateString()}</p>
+                  <p><strong>Fitness:</strong> {new Date(v.fitnessExpiry).toLocaleDateString()}</p>
+                  <p><strong>Permit:</strong> {new Date(v.permitExpiry).toLocaleDateString()}</p>
+                  <p><strong>Pollution:</strong> {new Date(v.pollutionExpiry).toLocaleDateString()}</p>
+                  <p><strong>Tax:</strong> {new Date(v.taxExpiry).toLocaleDateString()}</p>
+                </div>
+
+                <div className="mt-5 flex justify-between text-sm text-gray-700">
+                  <Link
+                    to={`/vehicle/${v._id}/view`}
+                    className="flex items-center gap-1 text-blue-600 hover:text-blue-800 transition"
+                  >
+                    <FaEye className="transition-transform group-hover:scale-110" /> View
+                  </Link>
+                  <Link
+                    to={`/vehicle/${v._id}/edit`}
+                    className="flex items-center gap-1 text-yellow-600 hover:text-yellow-800 transition"
+                  >
+                    <FaEdit className="transition-transform group-hover:scale-110" /> Edit
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(v._id)}
+                    className="flex items-center gap-1 text-red-600 hover:text-red-800 transition"
+                  >
+                    <FaTrash className="transition-transform group-hover:scale-110" /> Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
