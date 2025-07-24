@@ -1,22 +1,12 @@
-const express = require('express');
-const vehicleRoutes = express.Router();
+// const express = require("express");
+// const router = express.Router();
+// const {getAllVehicles, addVehicle, getVehicleById, updateVehicle, deleteVehicle} = require("../controllers/vehicleController");
+// const auth = require("../middleware/authMiddleware");
 
-const vehicleController = require('../controllers/vehicleController');
-const {
-  getAllVehicles,
-  getVehicleById,
-  createVehicle,
-  updateVehicle,
-  deleteVehicle
-} = require('../controllers/vehicleController');
+// router.get("/", auth, getAllVehicles);
+// router.post("/", auth, addVehicle);
+// router.get("/:id", auth, getVehicleById);
+// router.put("/:id", auth, updateVehicle);
+// router.delete("/:id", auth, deleteVehicle);
 
-const authMiddleware = require('../middleware/authMiddleware');
-
-// Routes
-router.get('/', authMiddleware, vehicleController.getAllVehicles); // Get all
-router.get('/:id', authMiddleware, vehicleController.getVehicleById); // Get one
-router.post('/', authMiddleware, vehicleController.createVehicle); // Create
-router.put('/:id', authMiddleware, vehicleController.updateVehicle); // Update
-router.delete('/:id', authMiddleware, vehicleController.deleteVehicle); // Delete
-
-module.exports = vehicleRoutes;
+// module.exports = router;
