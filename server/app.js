@@ -12,9 +12,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-// app.use("/api/vehicles", vehicleRoutes);
-// app.use("/api/emails", emailRoutes);
+app.use("/api/vehicles", vehicleRoutes);
+app.use("/api/emails", emailRoutes);
 
+require("./cron/checkExpiry");
 
 app.get("/", (req, res) => {
     res.send("This is root page !!");

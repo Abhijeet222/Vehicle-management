@@ -1,4 +1,5 @@
 const User = require("../models/User")
+const EmailList = require("../models/EmailList");
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
@@ -12,12 +13,17 @@ exports.registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashedPassword,
       role: "user"
     })
+
+    await EmailList.create({
+      email: user.email,
+      addedBy: user._id
+    });
 
     res.status(201).json({ message: "User registered successfully" })
   } catch (err) {
